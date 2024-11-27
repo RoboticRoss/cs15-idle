@@ -1,7 +1,6 @@
 package idle;
 
 
-import com.sun.org.apache.bcel.internal.Const;
 import idle.Particles.ParticleManager;
 import idle.Particles.ParticleType;
 import javafx.animation.KeyFrame;
@@ -12,16 +11,15 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class Andy {
-  private Stats stats;
+  private Wallet wallet;
   private ImageView body;
   private DropShadow dropShadow;
 
-  public Andy(Stats stats, Pane parent, ParticleManager particleManager) {
-    this.stats = stats;
+  public Andy(Wallet wallet, Pane parent, ParticleManager particleManager) {
+    this.wallet = wallet;
     this.body = new ImageView("idle/images/andy_normal.png");
     this.body.setOnMouseClicked(event -> this.handleClick(particleManager));
     this.body.setOnMouseEntered(event -> this.andyHover());
@@ -45,7 +43,7 @@ public class Andy {
 
   private void handleClick(ParticleManager particleManager) {
     particleManager.spawnParticle(ParticleType.ANDY);
-    this.stats.clickAndy();
+    this.wallet.clickAndy();
     KeyFrame start = new KeyFrame(Duration.seconds(0.01),
         event -> this.body.setImage(new Image("idle/images/andy_click.png")),
         new KeyValue(this.dropShadow.colorProperty(), Constants.ANDY_CLICK),

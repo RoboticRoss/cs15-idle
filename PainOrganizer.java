@@ -1,5 +1,6 @@
 package idle;
 
+import idle.currency.Currency;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -13,7 +14,6 @@ public class PainOrganizer {
     this.stage = stage;
     this.root = new BorderPane();
     this.setupCurrencyPane();
-    this.setupUpgradePane();
   }
 
 
@@ -22,16 +22,34 @@ public class PainOrganizer {
     currencyPane.setStyle(Constants.CURRENCY_PANE_STYLE);
     currencyPane.setPrefSize(Constants.CURRENCY_WIDTH,Constants.CURRENCY_HEIGHT);
 
-    CurrencyLabel[] labels = new CurrencyLabel[]{
-        new CurrencyLabel(currencyPane, "Characters", 0),
-        new CurrencyLabel(currencyPane, "Lines", 0),
-        new CurrencyLabel(currencyPane, "Methods", 0),
-        new CurrencyLabel(currencyPane, "Classes", 0)
+    Currency[] currencies = new Currency[] {
+        new Currency("Characters", 0,0),
+        new Currency("Lines",0,0),
+        new Currency("Methods",0,0),
+        new Currency("Classes",0,0)
     };
-    this.setupGamePane(labels);
+
+    CurrencyLabel[] labels = new CurrencyLabel[]{
+        new CurrencyLabel(currencyPane, currencies[0]),
+        new CurrencyLabel(currencyPane, currencies[1]),
+        new CurrencyLabel(currencyPane, currencies[2]),
+        new CurrencyLabel(currencyPane, currencies[3])
+    };
+
+    for (int i = 0; i < labels.length; i++) {
+      currencies[i].setLabel(labels[i]);
+    }
+
+    this.setupGamePane(currencies);
     this.root.setLeft(currencyPane);
   }
-  private void setupGamePane(CurrencyLabel[] labels) {
+  private void setupGamePane(Currency[] currencies) {
+    Pane upgradePane = new Pane();
+    upgradePane.setStyle(Constants.UPGRADE_PANE_STYLE);
+    upgradePane.setPrefSize(Constants.UPGRADE_WIDTH,Constants.UPGRADE_HEIGHT);
+
+    this.root.setRight(upgradePane);
+
     Pane gamePane = new Pane();
     gamePane.setStyle(Constants.GAME_PANE_STYLE);
     gamePane.setPrefSize(Constants.GAME_WIDTH,Constants.GAME_HEIGHT);
@@ -39,17 +57,9 @@ public class PainOrganizer {
     Pane particles = new Pane();
     gamePane.getChildren().add(particles);
 
-    Stats stats = new Stats(labels);
-    new Game(stats, gamePane, particles);
+    Wallet wallet = new Wallet(currencies);
+    new Game(wallet, gamePane, particles, upgradePane);
     this.root.setCenter(gamePane);
-  }
-
-  private void setupUpgradePane() {
-    Pane upgradePane = new StackPane();
-    upgradePane.setStyle(Constants.UPGRADE_PANE_STYLE);
-    upgradePane.setPrefSize(Constants.UPGRADE_WIDTH,Constants.UPGRADE_HEIGHT);
-
-    this.root.setRight(upgradePane);
   }
 
   public BorderPane getRoot() {

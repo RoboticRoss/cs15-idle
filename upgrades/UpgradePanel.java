@@ -1,4 +1,4 @@
-package idle;
+package idle.upgrades;
 
 public class UpgradePanel {
 

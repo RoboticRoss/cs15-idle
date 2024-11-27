@@ -8,15 +8,13 @@ public abstract class Particle {
 
   private Pane parent;
   private ImageView body;
-  private double velo;
 
   public Particle(Pane parent, String imageView) {
     this.parent = parent;
     this.body = new ImageView(imageView);
-    this.body.setX(Math.random() * 400);
+    this.body.setX(Math.random() * 340);
     this.body.setY(Constants.PARTICLE_Y);
     this.parent.getChildren().add(this.body);
-    this.velo = 0;
   }
 
 
@@ -55,7 +53,6 @@ public abstract class Particle {
 
   public void kill() {
     this.parent.getChildren().remove(this.body);
-    System.out.println("byebye");
   }
 
 }

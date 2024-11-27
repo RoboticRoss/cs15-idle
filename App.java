@@ -6,9 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Welcome to DoodleJump!
- * Bounce around and ascend on a variety of platforms
- * Change the difficulty or even play multiplayer!
+ * Welcome to CS15-IDLE!
  */
 public class App extends Application {
 

@@ -1,7 +1,7 @@
 package idle;
 
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 
 public class Constants {
 
@@ -13,15 +13,21 @@ public class Constants {
 
 
 
-  public static double CURRENCY_WIDTH = SCREEN_WIDTH*2/7;
+  public static double CURRENCY_WIDTH = 300;
   public static double CURRENCY_HEIGHT = SCREEN_HEIGHT;
 
-  public static double GAME_WIDTH = SCREEN_WIDTH*3/7;
+  public static double GAME_WIDTH = 350;
   public static double GAME_HEIGHT = SCREEN_HEIGHT;
 
 
-  public static double UPGRADE_WIDTH = SCREEN_WIDTH-GAME_WIDTH-CURRENCY_WIDTH;
+  public static double UPGRADE_WIDTH = 300;
   public static double UPGRADE_HEIGHT = SCREEN_HEIGHT;
+
+  public static double UPGRADE_BOX_WIDTH = 100;
+  public static double UPGRADE_BOX_HEIGHT = 50;
+  public static double UPGRADE_BOX_X = 40;
+
+
 
   public static int LABEL_FONT_SIZE = 24;
 
@@ -30,10 +36,15 @@ public class Constants {
   public static double LABEL_X = 30;
   public static double LABEL_Y = 100;
   public static double LABEL_PADDING = 100;
+  public static double LABEL_INCOME_SPACING = 25;
   public static double ANDY_X = 150;
   public static double ANDY_Y = 200;
   public static double SHADOW_RADIUS = 30;
   public static double GLOW_RADIUS = 60;
+
+
+  public static Font VALUE_TEXT = new Font("Courier New Bold", 24);
+  public static Font INCOME_TEXT = new Font("Courier New Bold", 16);
 
 
   public static String ANDY_PARTICLE = "idle/images/particles/andy.png";
