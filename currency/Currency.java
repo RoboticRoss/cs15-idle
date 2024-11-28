@@ -6,6 +6,7 @@ import idle.CurrencyLabel;
 public class Currency {
   private CurrencyLabel label;
   private String name;
+  private int towerCount;
   private double amount;
   private double income;
 

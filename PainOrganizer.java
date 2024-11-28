@@ -3,7 +3,6 @@ package idle;
 import idle.currency.Currency;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class PainOrganizer {
@@ -44,11 +43,10 @@ public class PainOrganizer {
     this.root.setLeft(currencyPane);
   }
   private void setupGamePane(Currency[] currencies) {
-    Pane upgradePane = new Pane();
-    upgradePane.setStyle(Constants.UPGRADE_PANE_STYLE);
-    upgradePane.setPrefSize(Constants.UPGRADE_WIDTH,Constants.UPGRADE_HEIGHT);
+    Pane projectPane = new Pane();
+    projectPane.setStyle(Constants.PROJECT_PANE_STYLE);
+    projectPane.setPrefSize(Constants.PROEJCT_PANE_WIDTH,Constants.PROEJCT_PANE_HEIGHT);
 
-    this.root.setRight(upgradePane);
 
     Pane gamePane = new Pane();
     gamePane.setStyle(Constants.GAME_PANE_STYLE);
@@ -58,8 +56,21 @@ public class PainOrganizer {
     gamePane.getChildren().add(particles);
 
     Wallet wallet = new Wallet(currencies);
+
+
+
+
+    Pane upgradePane = new Pane();
+    upgradePane.setPrefSize(Constants.UPGRADE_PANE_WIDTH, Constants.UPGRADE_PANE_HEIGHT);
+    upgradePane.setStyle(Constants.UPGRADE_PANE_STYLE);
+
     new Game(wallet, gamePane, particles, upgradePane);
     this.root.setCenter(gamePane);
+    this.root.setRight(projectPane);
+    this.root.setBottom(upgradePane);
+
+
+
   }
 
   public BorderPane getRoot() {
