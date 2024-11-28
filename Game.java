@@ -1,8 +1,12 @@
 package idle;
 
+import idle.Particles.AndyParticle;
 import idle.Particles.ParticleManager;
+import idle.Particles.ParticleType;
+import idle.upgrades.ProjectUpgrade;
 import idle.upgrades.Upgrade;
 import idle.upgrades.UpgradeBox;
+import indy.UpgradePanel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,6 +19,7 @@ public class Game {
   private Andy andy;
   private Pane gamePane, particlePane, upgradePane;
   private ParticleManager particleManager;
+  private UpgradePanel upgradePanel;
 
 
   private UpgradeBox box; //DELETE ME
@@ -29,11 +34,22 @@ public class Game {
     this.gamePane = gamePane;
     this.setTimeline();
 
-    Upgrade upgrade = new Upgrade(CurrencyType.CHARACTERS, 100,
-        "Bigger Kitchen", "Doubles the efficiency of Rattytouille",
-        () -> this.wallet.addIncome(CurrencyType.METHODS, 1));
+    Project project = new Project(ProjectType.ANDYBOT);
+    Upgrade upgrade = new ProjectUpgrade(project, 0);
+    Upgrade upgrade2 = new ProjectUpgrade(project, 1);
+    Upgrade upgradebad = new ProjectUpgrade(project, 1);
+    this.box = new UpgradeBox(upgradePane, upgrade2, this.wallet);
 
-    this.box = new UpgradeBox(upgradePane, upgrade, this.wallet);
+//    Upgrade upgrade = new Upgrade(CurrencyType.CHARACTERS, 100,
+//        "Bigger Kitchen", "Doubles the efficiency of Rattytouille",
+//        () -> {
+//      this.wallet.addIncome(CurrencyType.METHODS, 1);
+//          for (int i = 0; i < 100; i++) {
+//            this.particleManager.spawnParticle(ParticleType.ANDY);
+//          }
+//    });
+//
+//    this.box = new UpgradeBox(upgradePane, upgrade, this.wallet);
   }
   private void setTimeline() {
     KeyFrame kf = new KeyFrame(Duration.millis(Constants.DURATION),
@@ -47,6 +63,14 @@ public class Game {
     this.particleManager.update();
     this.wallet.update();
     this.box.update();
+  }
+
+
+
+
+
+  private void initializeUpgrades() {
+
   }
 
 }

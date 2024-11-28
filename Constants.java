@@ -1,6 +1,5 @@
 package idle;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.scene.paint.Color;
@@ -29,7 +28,8 @@ public class Constants {
 
   public static double UPGRADE_BOX_WIDTH = 150;
   public static double UPGRADE_BOX_HEIGHT = 50;
-  public static double UPGRADE_BOX_X = 900;
+  public static double UPGRADE_BOX_X = 850;
+  public static double UPGRADE_BOX_Y = 30;
 
 
 
@@ -48,9 +48,9 @@ public class Constants {
   public static double TOOLTIP_TEXT_Y = 45;
 
 
-  public static double ANDY_X = 150;
+  public static double ANDY_X = 130;
   public static double ANDY_Y = 200;
-  public static double SHADOW_RADIUS = 30;
+  public static double SHADOW_RADIUS = 20;
   public static double GLOW_RADIUS = 60;
 
   public static String FONT = "Comic Sans MS Bold";
@@ -85,7 +85,7 @@ public class Constants {
 
   public static String ANDY_PARTICLE = "idle/images/particles/andy.png";
 
-  public static Color ANDY_SHADOW = new Color(0.2,0.2,0,1);
+  public static Color ANDY_SHADOW = new Color(0.2,0.2,0,0.6);
   public static Color ANDY_GLOW = Color.web("D0A131FF");
   public static Color ANDY_CLICK = Color.web("5FB244FF");
 
@@ -109,4 +109,37 @@ public class Constants {
       "-fx-background-color: #FFC9C9;"+
           "-fx-border-color: #FD8A68;" +
           "-fx-border-width: 20;";
+
+
+
+  public static int[][][] UPGRADE_VALS = new int[][][]{
+      {{0,100,2},{1,15,2}, {1,50,3}, {2,25,3}, {3,10,5}}, //Prices for rattytouille
+      {{0,100,2},{1,15,2}, {1,50,3}, {2,25,3}, {3,10,5}}, //Prices for andybot
+  };
+  public static String[][][] upgradeText = new String[][][]{
+      { //Rattytouille
+        {"Bigger Kitchen", "Doubles the efficiency of Rattytouille Rats!"},
+        {"Non-Stick Pans","Doubles the efficiency of Rattytouille Rats!"},
+        {"Magnetic Spice Racks","Triples the efficiency of Rattytouille Rats!"},
+        {"Magnetic Spice Racks","Triples the efficiency of Rattytouille Rats!"},
+        {"Ilan's Hot Pockets","5x efficiency of Rattytouille Rats!"}
+      },
+      { //Andybot
+        {"",""},
+        {"BFS",""},
+        {"",""},
+        {"",""},
+        {"",""}
+      },
+  };
+
+  public static int[] BASE_PROJECT_PRICES = new int[]{
+      10,40,2
+  };
+
+  public static int[] UNLOCK_INCREMENTS = new int[]{
+      1,5,10,25,50
+  };
+
+
 }

@@ -25,12 +25,18 @@ public class UpgradeBox {
     this.parent = parent;
     this.upgrade = upgrade;
     this.wallet = wallet;
+    try {
+      this.upgradeBox = new ImageView(upgrade.getImagePath());
+    } catch (Exception e) {
+      this.upgradeBox = new ImageView("idle/images/upgrades/error.png");
+    }
     this.setupBox();
   }
 
 
+
+
   private void setupBox() {
-    this.upgradeBox = new ImageView("idle/images/upgrades/rat1.png");
     this.lock = new Rectangle(96, 96);
     // Add hover effects
     this.lock.setOnMouseEntered(this::showTooltip);
@@ -40,6 +46,10 @@ public class UpgradeBox {
 
     this.upgradeBox.setX(Constants.UPGRADE_BOX_X);
     this.lock.setX(Constants.UPGRADE_BOX_X);
+
+    this.upgradeBox.setY(Constants.UPGRADE_BOX_Y);
+    this.lock.setY(Constants.UPGRADE_BOX_Y);
+
     this.lock.setFill(Color.WHITE);
 
     this.nameLabel = new Text(this.upgrade.getName());
@@ -99,10 +109,10 @@ public class UpgradeBox {
     this.flavorLabel.setY(y+ Constants.TOOLTIP_TEXT_Y+25);
 
     this.priceLabel.setX(x + Constants.TOOLTIP_TEXT_X);
-    this.priceLabel.setY(y+ Constants.TOOLTIP_TEXT_Y+70);
+    this.priceLabel.setY(y+ Constants.TOOLTIP_TEXT_Y+65);
 
     this.buyLabel.setX(x + Constants.TOOLTIP_TEXT_X);
-    this.buyLabel.setY(y+ Constants.TOOLTIP_TEXT_Y+82);
+    this.buyLabel.setY(y+ Constants.TOOLTIP_TEXT_Y+78);
 
     this.toolTipbox.setX(x);
     this.toolTipbox.setY(y);
@@ -115,14 +125,14 @@ public class UpgradeBox {
      this.nameLabel.setFill(Color.BLACK);
      this.flavorLabel.setFill(Color.BLACK);
      this.priceLabel.setFill(Color.BLACK);
-     this.buyLabel.setVisible(true);
+     this.buyLabel.setOpacity(1.0);
 
    } else {
      this.lock.setOpacity(0.7);
      this.priceLabel.setFill(Color.CRIMSON);
      this.nameLabel.setFill(Color.GRAY);
      this.flavorLabel.setFill(Color.GRAY);
-     this.buyLabel.setVisible(false);
+     this.buyLabel.setOpacity(0);
      this.toolTipbox.setImage(new Image("idle/images/tooltip.png"));
    }
   }

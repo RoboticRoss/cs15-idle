@@ -5,9 +5,11 @@ import idle.upgrades.Upgrade;
 
 public class Wallet {
   private Currency[] currencies;
+  private int[] projectCount;
   private int clickPower;
   public Wallet(Currency[] currencies) {
     this.currencies = currencies;
+    this.projectCount = new int[8];
     this.addIncome(CurrencyType.CHARACTERS, 1);
 
     this.clickPower = 1;
