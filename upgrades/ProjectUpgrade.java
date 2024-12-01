@@ -1,8 +1,7 @@
 package idle.upgrades;
 
 import idle.Constants;
-import idle.Project;
-import idle.Wallet;
+import idle.projects.Project;
 
 public class ProjectUpgrade extends Upgrade{
   private Project project;
@@ -23,7 +22,8 @@ public class ProjectUpgrade extends Upgrade{
   }
 
   @Override
-  public boolean unlockUpgrade() {
-    return this.project.hasTowers(this.unlockCount);
+  public boolean isUnlocked() {
+    return true;
+    //return this.project.hasTowers(this.unlockCount);
   }
 }

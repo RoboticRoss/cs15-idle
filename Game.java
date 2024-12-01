@@ -1,12 +1,15 @@
 package idle;
 
-import idle.Particles.AndyParticle;
 import idle.Particles.ParticleManager;
-import idle.Particles.ParticleType;
+import idle.currency.Currency;
+import idle.projects.Project;
+import idle.projects.ProjectBox;
+import idle.projects.ProjectType;
 import idle.upgrades.ProjectUpgrade;
 import idle.upgrades.Upgrade;
 import idle.upgrades.UpgradeBox;
-import indy.UpgradePanel;
+import idle.upgrades.UpgradePanel;
+import java.util.ArrayList;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -20,25 +23,51 @@ public class Game {
   private Pane gamePane, particlePane, upgradePane;
   private ParticleManager particleManager;
   private UpgradePanel upgradePanel;
+  private ArrayList<ProjectBox> projectBoxes;
 
 
   private UpgradeBox box; //DELETE ME
 
 
-  public Game(Wallet wallet, Pane gamePane, Pane particlePane, Pane upgradePane) {
-    this.wallet = wallet;
+  public Game(Currency[] currencies, Pane gamePane, Pane particlePane, Pane upgradePane, Pane projectPane) {
+    
+    this.projectBoxes = new ArrayList<>();
+    
+    ArrayList<Project> projects = new ArrayList<>();
+    Project project = new Project(ProjectType.RATTYTOUILLE);
+    projects.add(project);
+
+    this.wallet = new Wallet(currencies, projects);
     this.particleManager = new ParticleManager(particlePane);
 
-    this.andy = new Andy(wallet, gamePane, this.particleManager);
+    this.andy = new Andy(this.wallet, gamePane, this.particleManager);
     this.particlePane = particlePane;
     this.gamePane = gamePane;
     this.setTimeline();
 
-    Project project = new Project(ProjectType.ANDYBOT);
     Upgrade upgrade = new ProjectUpgrade(project, 0);
     Upgrade upgrade2 = new ProjectUpgrade(project, 1);
-    Upgrade upgradebad = new ProjectUpgrade(project, 1);
-    this.box = new UpgradeBox(upgradePane, upgrade2, this.wallet);
+    Upgrade upgrade3 = new ProjectUpgrade(project, 2);
+    //this.box = new UpgradeBox(upgradePane, upgrade2, this.wallet);
+
+    ArrayList<Upgrade> allUpgrades = new ArrayList<>();
+
+
+    allUpgrades.add(new ProjectUpgrade(project, 0));
+    allUpgrades.add(new ProjectUpgrade(project, 1));
+    allUpgrades.add(new ProjectUpgrade(project, 2));
+    allUpgrades.add(new ProjectUpgrade(project, 3));
+    allUpgrades.add(new ProjectUpgrade(project, 4));
+
+    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
+    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
+    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
+    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
+    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
+    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
+    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
+    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
+    this.upgradePanel = new UpgradePanel(upgradePane, allUpgrades, this.wallet);
 
 //    Upgrade upgrade = new Upgrade(CurrencyType.CHARACTERS, 100,
 //        "Bigger Kitchen", "Doubles the efficiency of Rattytouille",
@@ -62,7 +91,12 @@ public class Game {
   private void update() {
     this.particleManager.update();
     this.wallet.update();
-    this.box.update();
+    this.upgradePanel.update();
+
+    for (ProjectBox box :
+        this.projectBoxes) {
+      box.update();
+    }
   }
 
 

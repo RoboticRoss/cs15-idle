@@ -19,12 +19,14 @@ public class UpgradeBox {
   private Upgrade upgrade;
   private Wallet wallet;
   private Text nameLabel, flavorLabel, priceLabel, buyLabel;
+  private boolean purchased;
 
 
   public UpgradeBox(Pane parent, Upgrade upgrade, Wallet wallet){
     this.parent = parent;
     this.upgrade = upgrade;
     this.wallet = wallet;
+    this.purchased = false;
     try {
       this.upgradeBox = new ImageView(upgrade.getImagePath());
     } catch (Exception e) {
@@ -33,8 +35,19 @@ public class UpgradeBox {
     this.setupBox();
   }
 
+  public void setX(int index) {
+    double x = Constants.UPGRADE_BOX_X - index * Constants.UPGRADE_SIZE;
+    this.upgradeBox.setX(x);
+    this.lock.setX(x);
+  }
 
+  private void setPos(double x, double y) {
+    this.upgradeBox.setX(x);
+    this.upgradeBox.setY(y);
 
+    this.lock.setX(x);
+    this.lock.setY(y);
+  }
 
   private void setupBox() {
     this.lock = new Rectangle(96, 96);
@@ -44,17 +57,13 @@ public class UpgradeBox {
     this.lock.setOnMouseExited(event -> this.hideTooltip());
     this.lock.setOnMouseClicked(event -> this.purchaseUpgrade());
 
-    this.upgradeBox.setX(Constants.UPGRADE_BOX_X);
-    this.lock.setX(Constants.UPGRADE_BOX_X);
-
-    this.upgradeBox.setY(Constants.UPGRADE_BOX_Y);
-    this.lock.setY(Constants.UPGRADE_BOX_Y);
+    this.setPos(Constants.UPGRADE_BOX_X, Constants.UPGRADE_BOX_Y);
 
     this.lock.setFill(Color.WHITE);
 
     this.nameLabel = new Text(this.upgrade.getName());
     this.flavorLabel = new Text(this.upgrade.getFlavorTxt());
-    this.priceLabel = new Text("COST: "+ this.upgrade.getPrice() + " " + this.upgrade.getCurrencyType());
+    this.priceLabel = new Text("COST: "+ this.upgrade.getPrice().toString());
     this.buyLabel = new Text("(CLICK TO BUY)");
     this.buyLabel.setFill(Color.GREEN);
 
@@ -78,6 +87,10 @@ public class UpgradeBox {
         mouseEvent.getSceneY() - this.parent.getLayoutY()
     );
     this.showBox(true);
+  }
+
+  public boolean hasPurchased() {
+    return this.purchased;
   }
 
   private void moveTooltip(MouseEvent mouseEvent) {
@@ -119,7 +132,7 @@ public class UpgradeBox {
   }
 
   public void update() {
-   if(this.wallet.canAfford(this.upgrade)) {
+   if(this.wallet.canAfford(this.upgrade.getPrice())) {
      this.lock.setOpacity(0);
      this.toolTipbox.setImage(new Image("idle/images/tooltip_locked.png"));
      this.nameLabel.setFill(Color.BLACK);
@@ -138,9 +151,11 @@ public class UpgradeBox {
   }
 
   private void purchaseUpgrade() {
-
-    if(this.wallet.makePurchase(this.upgrade)) {
+    if(this.wallet.makePurchase(this.upgrade.getPrice())) {
+      this.upgrade.apply();
+      this.wallet.updateIncome();
       this.kill();
+      this.purchased = true;
     }
   }
 

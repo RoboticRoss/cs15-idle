@@ -8,8 +8,8 @@ import javafx.scene.text.Font;
 public class Constants {
 
   //Screen properties
-  public static double SCREEN_WIDTH = 1000;
-  public static double SCREEN_HEIGHT = 750;
+  public static double SCREEN_WIDTH = 1050;
+  public static double SCREEN_HEIGHT = 850;
   public static int FPS = 100;
   public static double DURATION = 1000.0/FPS;
 
@@ -23,13 +23,20 @@ public class Constants {
   public static double GAME_HEIGHT = CURRENCY_HEIGHT;
 
 
-  public static double PROEJCT_PANE_WIDTH = 300;
+  public static double PROEJCT_PANE_WIDTH = 350;
   public static double PROEJCT_PANE_HEIGHT = CURRENCY_HEIGHT;
 
   public static double UPGRADE_BOX_WIDTH = 150;
   public static double UPGRADE_BOX_HEIGHT = 50;
-  public static double UPGRADE_BOX_X = 850;
-  public static double UPGRADE_BOX_Y = 30;
+  public static double UPGRADE_BOX_X = 870;
+  public static double UPGRADE_BOX_Y = 26;
+
+
+  public static double PROJECT_BOX_WIDTH = 290;
+  public static double PROJECT_BOX_HEIGHT = 60;
+  public static double PROJECT_BOX_X = 30;
+  public static double PROJECT_BOX_Y = 26;
+  public static double PROJECT_BOX_PADDING = 80;
 
 
 
@@ -46,6 +53,7 @@ public class Constants {
 
   public static double TOOLTIP_TEXT_X = 30;
   public static double TOOLTIP_TEXT_Y = 45;
+  public static double UPGRADE_SIZE = 96; //px
 
 
   public static double ANDY_X = 130;
@@ -55,24 +63,25 @@ public class Constants {
 
   public static String FONT = "Comic Sans MS Bold";
 
-  public static Font VALUE_TEXT;
-  public static Font INCOME_TEXT;
-  public static Font NAME_TEXT;
-  public static Font TOOLTIP_TITLE;
-  public static Font TOOLTIP_TEXT;
-  public static Font TOOLTIP_COST;
-  public static Font TOOLTIP_BUY;
+  public static Font VALUE_TEXT,INCOME_TEXT, NAME_TEXT
+,TOOLTIP_TITLE
+,TOOLTIP_TEXT
+,TOOLTIP_COST
+,PROJECT_NAME
+,PROJECT_COST
+,TOOLTIP_BUY;
 
 
   static {
     try {
-      VALUE_TEXT = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 50);
+      VALUE_TEXT = Font.loadFont(new FileInputStream("src/idle/fonts/joystix.ttf"), 50);
       INCOME_TEXT = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 16);
       NAME_TEXT = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 20);
       TOOLTIP_TITLE = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 22);
       TOOLTIP_TEXT = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 14);
       TOOLTIP_COST = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 16);
-      TOOLTIP_BUY = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 12);
+      PROJECT_NAME = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 35);
+      TOOLTIP_BUY = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 18);
 
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
@@ -84,6 +93,12 @@ public class Constants {
 
 
   public static String ANDY_PARTICLE = "idle/images/particles/andy.png";
+
+  public static Color PROECT_BORDER_READY = Color.MEDIUMPURPLE;
+  public static Color PROECT_BACKGROUND_READY = Color.LAVENDER;
+  public static Color PROECT_BACKGROUND_LOCKED = Color.GRAY;
+  public static Color PROECT_BORDER_LOCKED = Color.DARKGRAY;
+  public static Color PROECT_BORDER2 = new Color(0.2,0.2,0,0.6);
 
   public static Color ANDY_SHADOW = new Color(0.2,0.2,0,0.6);
   public static Color ANDY_GLOW = Color.web("D0A131FF");
@@ -113,16 +128,16 @@ public class Constants {
 
 
   public static int[][][] UPGRADE_VALS = new int[][][]{
-      {{0,100,2},{1,15,2}, {1,50,3}, {2,25,3}, {3,10,5}}, //Prices for rattytouille
+      {{0,10,2},{0,15,2}, {0,50,3}, {2,25,3}, {3,10,5}}, //Prices for rattytouille
       {{0,100,2},{1,15,2}, {1,50,3}, {2,25,3}, {3,10,5}}, //Prices for andybot
   };
   public static String[][][] upgradeText = new String[][][]{
       { //Rattytouille
         {"Bigger Kitchen", "Doubles the efficiency of Rattytouille Rats!"},
         {"Non-Stick Pans","Doubles the efficiency of Rattytouille Rats!"},
-        {"Magnetic Spice Racks","Triples the efficiency of Rattytouille Rats!"},
-        {"Magnetic Spice Racks","Triples the efficiency of Rattytouille Rats!"},
-        {"Ilan's Hot Pockets","5x efficiency of Rattytouille Rats!"}
+        {"Swiss Cheese","Triples the efficiency of Rattytouille Rats!"},
+        {"Chef Kevin","Triples the efficiency of Rattytouille Rats!"},
+        {"Linguini","5x efficiency of Rattytouille Rats!"}
       },
       { //Andybot
         {"",""},
@@ -131,10 +146,76 @@ public class Constants {
         {"",""},
         {"",""}
       },
+      { //Pong
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""}
+      },
+      { //Tictactoe
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""}
+      },
+      { //Fruit ninja
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""}
+      },
+      { //Cartoon
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""}
+      },
+      { //DoodleJump
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""}
+      },
+      { //Tetris
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""}
+      },
+  };
+
+
+  public static String[][] PROJECT_DISPLAY = {
+      {"Rattytouille", ""},
+      {"Andybot", "BEEP BOOP [ENTER PASSWORD]"},
+      {"Pong", ""},
+      {"Tic-Tac-Toe", ""},
+      {"Fruit Ninja", ""},
+      {"Cartoon", "Alienmover? I hardly know her!"},
+      {"Doodle Jump", ""},
+      {"Tetris", ""},
+      {"Pac-Man", ""}
   };
 
   public static int[] BASE_PROJECT_PRICES = new int[]{
       10,40,2
+  };
+  public static double[] BASE_PROJECT_INCOMES = new double[]{
+      0.1,1,5,10
+  };
+
+  public static CurrencyType[] PROJECT_INCOME_TYPES = new CurrencyType[]{
+      CurrencyType.CHARACTERS,
+      CurrencyType.CHARACTERS,
+      CurrencyType.CHARACTERS,
+      CurrencyType.CHARACTERS,
+
   };
 
   public static int[] UNLOCK_INCREMENTS = new int[]{

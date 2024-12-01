@@ -55,7 +55,7 @@ public class PainOrganizer {
     Pane particles = new Pane();
     gamePane.getChildren().add(particles);
 
-    Wallet wallet = new Wallet(currencies);
+
 
 
 
@@ -64,7 +64,7 @@ public class PainOrganizer {
     upgradePane.setPrefSize(Constants.UPGRADE_PANE_WIDTH, Constants.UPGRADE_PANE_HEIGHT);
     upgradePane.setStyle(Constants.UPGRADE_PANE_STYLE);
 
-    new Game(wallet, gamePane, particles, upgradePane);
+    new Game(currencies, gamePane, particles, upgradePane, projectPane);
     this.root.setCenter(gamePane);
     this.root.setRight(projectPane);
     this.root.setBottom(upgradePane);

@@ -27,6 +27,7 @@ public class Andy {
     this.body.setCursor(Cursor.HAND);
     this.body.setX(Constants.ANDY_X);
     this.body.setY(Constants.ANDY_Y);
+    this.body.setOpacity(0.0);
 
     this.makeDropShadow();
     parent.getChildren().add(this.body);

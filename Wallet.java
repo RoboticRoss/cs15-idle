@@ -1,26 +1,41 @@
 package idle;
 
 import idle.currency.Currency;
-import idle.upgrades.Upgrade;
+import idle.projects.Project;
+import java.util.ArrayList;
 
 public class Wallet {
   private Currency[] currencies;
-  private int[] projectCount;
+  private ArrayList<Project> projects;
   private int clickPower;
-  public Wallet(Currency[] currencies) {
+  public Wallet(Currency[] currencies, ArrayList<Project> projects) {
     this.currencies = currencies;
-    this.projectCount = new int[8];
-    this.addIncome(CurrencyType.CHARACTERS, 1);
-
+    this.projects = projects;
     this.clickPower = 1;
+    //this.addIncome(CurrencyType.CHARACTERS, 100000);
+    //this.addIncome(CurrencyType.LINES, 1000);
+    //this.addIncome(CurrencyType.METHODS, 10);
+    //this.addIncome(CurrencyType.CLASSES, 0.1);
   }
 
   public void update(){
-    this.updateIncome();
+    this.produceIncome();
   }
-  private void updateIncome(){
+  private void produceIncome(){
     for (Currency currency : this.currencies) {
       currency.updateAmount();
+    }
+  }
+
+  public void updateIncome() {
+    double[] income = new double[4];
+
+    for (Project project: this.projects) {
+      income[project.getIncomeType().ordinal()] += project.computeIncome();
+    }
+
+    for (int i = 0; i < this.currencies.length; i++) {
+      this.currencies[i].setIncome(income[i]);
     }
   }
 
@@ -33,27 +48,18 @@ public class Wallet {
     this.getCurrency(currencyType).addIncome(increase);
   }
 
-  public boolean canAfford(CurrencyType currencyType, int amount) {
-    return this.getCurrency(currencyType).getAmount() >= amount;
+  public void setIncome(CurrencyType currencyType, double increase) {
+    this.getCurrency(currencyType).addIncome(increase);
   }
 
-  public boolean canAfford(Upgrade upgrade) {
-    return this.getCurrency(upgrade.getCurrencyType()).getAmount() >= upgrade.getPrice();
+  public boolean canAfford(Price price) {
+    return this.getCurrency(price.getType()).getAmount() >= price.getAmount();
   }
 
 
-  public boolean makePurchase(CurrencyType currencyType, int amount) {
-    if(this.canAfford(currencyType,amount)) {
-      this.getCurrency(currencyType).addAmount(-amount);
-      return true;
-    }
-    return false;
-  }
-
-  public boolean makePurchase(Upgrade upgrade) {
-    if(this.canAfford(upgrade)) {
-      this.getCurrency(upgrade.getCurrencyType()).addAmount(-upgrade.getPrice());
-      upgrade.apply();
+  public boolean makePurchase(Price price) {
+    if(this.canAfford(price)) {
+      this.getCurrency(price.getType()).addAmount(-price.getAmount());
       return true;
     }
     return false;

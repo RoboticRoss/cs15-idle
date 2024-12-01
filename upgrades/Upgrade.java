@@ -1,8 +1,7 @@
 package idle.upgrades;
 
 import idle.CurrencyType;
-import idle.Project;
-import java.util.Optional;
+import idle.Price;
 
 public abstract class Upgrade {
 
@@ -10,13 +9,13 @@ public abstract class Upgrade {
   private UpgradeEffect upgradeEffect;
   private String imagePath;
   private final String name, flavorTxt;
-  private final int price;
+  private final Price price;
   private boolean unlocked;
 
 
 
   public Upgrade(CurrencyType currencyType, int price, String name, String flavorTxt, String imageName){
-    this.price = price;
+    this.price = new Price(currencyType, price);
     this.currencyType = currencyType;
     this.upgradeEffect = () -> System.out.println("PROBLEM");
     this.flavorTxt = flavorTxt;
@@ -30,7 +29,7 @@ public abstract class Upgrade {
   }
 
 
-  public abstract boolean unlockUpgrade();
+  public abstract boolean isUnlocked();
   public void apply() {
     this.upgradeEffect.apply();
   }
@@ -39,12 +38,8 @@ public abstract class Upgrade {
     return this.imagePath;
   }
 
-  public int getPrice() {
+  public Price getPrice() {
     return this.price;
-  }
-
-  public CurrencyType getCurrencyType() {
-    return this.currencyType;
   }
 
   public String getName() {
