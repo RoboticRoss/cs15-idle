@@ -60,13 +60,6 @@ public class Game {
     allUpgrades.add(new ProjectUpgrade(project, 4));
 
     this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
-    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
-    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
-    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
-    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
-    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
-    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
-    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
     this.upgradePanel = new UpgradePanel(upgradePane, allUpgrades, this.wallet);
 
 //    Upgrade upgrade = new Upgrade(CurrencyType.CHARACTERS, 100,

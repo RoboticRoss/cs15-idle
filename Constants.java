@@ -51,8 +51,8 @@ public class Constants {
   public static double LABEL_INCOME_SPACING = 70;
 
 
-  public static double TOOLTIP_TEXT_X = 30;
-  public static double TOOLTIP_TEXT_Y = 45;
+  public static double TOOLTIP_TEXT_X = 20;
+  public static double TOOLTIP_TEXT_Y = 40;
   public static double UPGRADE_SIZE = 96; //px
 
 

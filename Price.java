@@ -18,6 +18,6 @@ public class Price {
 
   @Override
   public String toString() {
-    return this.type + " " + this.amount;
+    return this.amount+ " " + this.type;
   }
 }

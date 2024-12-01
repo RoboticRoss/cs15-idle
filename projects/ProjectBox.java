@@ -2,13 +2,13 @@ package idle.projects;
 
 import idle.Constants;
 import idle.Price;
+import idle.PurchaseBox;
 import idle.Wallet;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-public class ProjectBox {
+public class ProjectBox extends PurchaseBox {
   private Pane projectPane;
   private Price price;
   private Wallet wallet;
@@ -53,6 +53,22 @@ public class ProjectBox {
   }
 
 
+  @Override
+  public void onPurchase() {
+    this.project.addTower(this.priceLabel);
+    this.price = this.project.computePrice();
+    this.setPrice(this.price);
+  }
+
+  @Override
+  public void canAfford() {
+
+  }
+
+  @Override
+  public void cannotAfford() {
+
+  }
 
   public void update() {
     if(this.wallet.canAfford(this.price)) {
