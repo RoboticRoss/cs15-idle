@@ -28,7 +28,7 @@ public class Constants {
 
   public static double UPGRADE_BOX_WIDTH = 150;
   public static double UPGRADE_BOX_HEIGHT = 50;
-  public static double UPGRADE_BOX_X = 870;
+  public static double UPGRADE_BOX_X = 920;
   public static double UPGRADE_BOX_Y = 26;
 
 
@@ -70,8 +70,7 @@ public class Constants {
 ,PROJECT_NAME
 ,PROJECT_COST
 ,TOOLTIP_BUY;
-
-
+  //Fuck it, try/catch in constants
   static {
     try {
       VALUE_TEXT = Font.loadFont(new FileInputStream("src/idle/fonts/joystix.ttf"), 50);
@@ -81,15 +80,12 @@ public class Constants {
       TOOLTIP_TEXT = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 14);
       TOOLTIP_COST = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 16);
       PROJECT_NAME = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 35);
-      TOOLTIP_BUY = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 18);
+      TOOLTIP_BUY = Font.loadFont(new FileInputStream("src/idle/fonts/pixel.ttf"), 12);
 
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
   }
-
-
-
 
 
   public static String ANDY_PARTICLE = "idle/images/particles/andy.png";
@@ -188,26 +184,45 @@ public class Constants {
           {"",""},
           {"",""}
       },
+      { //Indy
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""},
+          {"",""}
+      },
   };
 
-
-  public static String[][] PROJECT_DISPLAY = {
-      {"Rattytouille", ""},
-      {"Andybot", "BEEP BOOP [ENTER PASSWORD]"},
-      {"Pong", ""},
-      {"Tic-Tac-Toe", ""},
-      {"Fruit Ninja", ""},
-      {"Cartoon", "Alienmover? I hardly know her!"},
-      {"Doodle Jump", ""},
-      {"Tetris", ""},
-      {"Pac-Man", ""}
-  };
 
   public static int[] BASE_PROJECT_PRICES = new int[]{
-      10,40,2
+      10,
+      40,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      2
   };
   public static double[] BASE_PROJECT_INCOMES = new double[]{
-      0.1,1,5,10
+      0.1,
+      1,
+      5,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
   };
 
   public static CurrencyType[] PROJECT_INCOME_TYPES = new CurrencyType[]{
@@ -215,11 +230,17 @@ public class Constants {
       CurrencyType.CHARACTERS,
       CurrencyType.CHARACTERS,
       CurrencyType.CHARACTERS,
-
+      CurrencyType.CHARACTERS,
+      CurrencyType.CHARACTERS,
+      CurrencyType.CHARACTERS,
+      CurrencyType.CHARACTERS,
+      CurrencyType.CHARACTERS,
+      CurrencyType.CHARACTERS,
+      CurrencyType.CHARACTERS,
   };
 
   public static int[] UNLOCK_INCREMENTS = new int[]{
-      1,5,10,25,50
+      1,10,25,100,200
   };
 
 

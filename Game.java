@@ -60,6 +60,11 @@ public class Game {
     allUpgrades.add(new ProjectUpgrade(project, 4));
 
     this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
+    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
+    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
+    this.projectBoxes.add(new ProjectBox(projectPane,project, this.wallet));
+
+
     this.upgradePanel = new UpgradePanel(upgradePane, allUpgrades, this.wallet);
 
 //    Upgrade upgrade = new Upgrade(CurrencyType.CHARACTERS, 100,
@@ -72,6 +77,14 @@ public class Game {
 //    });
 //
 //    this.box = new UpgradeBox(upgradePane, upgrade, this.wallet);
+  }
+
+  private void setupProjects() {
+    Project ratty = new Project(ProjectType.RATTYTOUILLE);
+    Project andy = new Project(ProjectType.RATTYTOUILLE);
+
+
+
   }
   private void setTimeline() {
     KeyFrame kf = new KeyFrame(Duration.millis(Constants.DURATION),

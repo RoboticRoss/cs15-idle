@@ -4,5 +4,6 @@ public enum CurrencyType {
   CHARACTERS,
   LINES,
   METHODS,
-  CLASSES
+  CLASSES,
+  CHARA
 }

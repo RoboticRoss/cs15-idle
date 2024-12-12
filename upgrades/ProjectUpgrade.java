@@ -4,8 +4,8 @@ import idle.Constants;
 import idle.projects.Project;
 
 public class ProjectUpgrade extends Upgrade{
-  private Project project;
-  private int unlockCount;
+  private final Project project;
+  private final int unlockCount;
 
   public ProjectUpgrade(Project project, int tier) {
     super(
@@ -23,7 +23,6 @@ public class ProjectUpgrade extends Upgrade{
 
   @Override
   public boolean isUnlocked() {
-    return true;
-    //return this.project.hasTowers(this.unlockCount);
+    return this.project.hasTowers(this.unlockCount);
   }
 }

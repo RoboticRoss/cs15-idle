@@ -14,9 +14,10 @@ public class ProjectBox extends PurchaseBox {
   private Wallet wallet;
   private Project project;
   private Text nameLabel, priceLabel;
-  private Rectangle body, hover;
+  private Rectangle body;
   private static int numBoxes = 0;
   public ProjectBox(Pane projectPane, Project project, Wallet wallet) {
+    super(projectPane, wallet, project.computePrice(), Constants.UPGRADE_BOX_WIDTH, Constants.UPGRADE_BOX_HEIGHT, "");
     this.projectPane = projectPane;
     this.project = project;
     this.wallet = wallet;
@@ -27,16 +28,15 @@ public class ProjectBox extends PurchaseBox {
 
 
   private void setupText() {
-    this.body = new Rectangle(
-        Constants.PROJECT_BOX_WIDTH, Constants.PROJECT_BOX_HEIGHT);
-    this.hover = new Rectangle(
-        Constants.PROJECT_BOX_WIDTH, Constants.PROJECT_BOX_HEIGHT);
+
+    this.body = new Rectangle();
+
+    this.initializeTooltip(
+        this.project.displayName(),this.project.displayName(), this.price);
+
 
     this.body.setFill(Constants.PROECT_BACKGROUND_READY);
     this.body.setStroke(Constants.PROECT_BORDER_READY);
-    this.hover.setOpacity(0.0);
-
-    this.hover.setOnMouseClicked(event -> this.handleBuy());
 
     this.body.setStrokeWidth(10);
     this.nameLabel = new Text(this.project.displayName());
@@ -47,7 +47,7 @@ public class ProjectBox extends PurchaseBox {
     double y = Constants.PROJECT_BOX_Y + Constants.PROJECT_BOX_PADDING*numBoxes;
     this.setPos(Constants.PROJECT_BOX_X, y);
 
-    this.projectPane.getChildren().addAll(this.body,this.nameLabel, this.priceLabel, this.hover);
+    this.projectPane.getChildren().addAll(this.nameLabel, this.priceLabel);
 
     numBoxes++;
   }
@@ -58,6 +58,7 @@ public class ProjectBox extends PurchaseBox {
     this.project.addTower(this.priceLabel);
     this.price = this.project.computePrice();
     this.setPrice(this.price);
+    this.updateTooltipPrice(this.price);
   }
 
   @Override
@@ -70,35 +71,17 @@ public class ProjectBox extends PurchaseBox {
 
   }
 
-  public void update() {
-    if(this.wallet.canAfford(this.price)) {
-      this.body.setFill(Constants.PROECT_BACKGROUND_READY);
-      this.body.setStroke(Constants.PROECT_BORDER_READY);
-    } else {
-      this.body.setFill(Constants.PROECT_BACKGROUND_LOCKED);
-      this.body.setStroke(Constants.PROECT_BORDER_LOCKED);
-    }
 
-  }
-
-  private void handleBuy() {
-      if(this.wallet.makePurchase(this.price)) {
-        this.project.addTower(this.priceLabel);
-        this.wallet.updateIncome();
-        this.price = this.project.computePrice();
-      }
-  }
-
-
-
-  private void setPos(double x, double y) {
-    this.body.setX(x);
-    this.body.setY(y);
-    this.hover.setX(x);
-    this.hover.setY(y);
-    this.nameLabel.setX(x);
-    this.nameLabel.setY(y);
-    this.priceLabel.setX(x);
-    this.priceLabel.setY(y);
-  }
+//
+//
+//  private void setPos(double x, double y) {
+//    this.body.setX(x);
+//    this.body.setY(y);
+//    this.hover.setX(x);
+//    this.hover.setY(y);
+//    this.nameLabel.setX(x);
+//    this.nameLabel.setY(y);
+//    this.priceLabel.setX(x);
+//    this.priceLabel.setY(y);
+//  }
 }

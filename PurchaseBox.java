@@ -1,5 +1,6 @@
 package idle;
 
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -23,8 +24,13 @@ public abstract class PurchaseBox {
 
     this.lock = new Rectangle(width, height);
     this.lock.setFill(Color.WHITE);
+    this.lock.setCursor(Cursor.HAND);
     this.setInteractable(this.lock);
-    this.box = new ImageView(boxPath);
+    try {
+      this.box = new ImageView(boxPath);
+    } catch (Exception e) {
+      this.box = new ImageView("idle/images/upgrades/error.png");
+    }
 
     parent.getChildren().addAll(this.box, this.lock);
 
@@ -44,6 +50,10 @@ public abstract class PurchaseBox {
     this.tooltip.hide();
   }
 
+  public void updateTooltipPrice(Price price) {
+    this.tooltip.setPrice(price);
+  }
+
   public void setInteractable(Node node) {
     node.setOnMouseEntered(this::showTooltip);
     node.setOnMouseMoved(this::moveTooltip);
@@ -53,8 +63,8 @@ public abstract class PurchaseBox {
 
   public void purchase() {
     if(this.wallet.makePurchase(this.price)) {
-      this.wallet.updateIncome();
       this.onPurchase();
+      this.wallet.updateIncome();
     }
   }
   public abstract void onPurchase();
@@ -76,13 +86,15 @@ public abstract class PurchaseBox {
   private void showTooltip(MouseEvent mouseEvent) {
     this.moveTooltip(mouseEvent);
     this.tooltip.show();
+    System.out.println("YAY");
   }
 
   private void moveTooltip(MouseEvent mouseEvent) {
-    this.tooltip.setTooltipPos(
-        mouseEvent.getSceneX()-260,
-        mouseEvent.getSceneY() - this.parent.getLayoutY()-150
-    );
+    double x = mouseEvent.getSceneX()- this.parent.getLayoutX() -260;
+    double y = mouseEvent.getSceneY() - this.parent.getLayoutY()-150;
+
+    if(mouseEvent.getSceneY() -150 < 20) y =20;
+    this.tooltip.setTooltipPos(x,y);
   }
 
   private void hideTooltip() {
@@ -91,6 +103,7 @@ public abstract class PurchaseBox {
 
   public void kill() {
     this.tooltip.kill();
+    this.parent.getChildren().removeAll(this.lock,this.box);
   }
 
 
